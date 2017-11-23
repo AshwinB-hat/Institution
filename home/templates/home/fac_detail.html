@@ -1,0 +1,30 @@
+{%  extends 'home/base.html' %}
+{% block tit %}Details{% endblock %}
+{% block first %}
+<img src="{{ faculty.image.url }}" class="img-circle pic img-responsive" width="230" height="230" usemap="#page"  >
+    <h2> <quote>{{ faculty.quote }}</quote></h2>
+    <br>
+    <h1>{{ faculty.f_name }}  {{ faculty.m_name }}  {{ faculty.l_name }}</h1><br>
+    <h3>Designation</h3>
+
+{% endblock %}
+{% block second %}
+    <h1><strong>Courses Taught</strong></h1>
+    <div class="container ">
+     {% if faculty.course_id.all %}
+         {% for course in faculty.course_id.all %}
+
+            <h1>{{ course.course_name }}</h1><br>
+         {% endfor %}
+    {% else %}
+    <<h2>NO courses taught</h2>
+    {% endif %}
+    </div>
+{% endblock %}
+{% block detail_third %}
+     <h2>{{ faculty.about }}</h2>
+{% endblock %}
+{% block first-but %}Home{% endblock %}
+{% block second-but %}Course{% endblock %}
+{% block third-but %}About{% endblock %}
+{% block fourth-but %}{% endblock %}

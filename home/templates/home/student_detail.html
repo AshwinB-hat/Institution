@@ -1,0 +1,20 @@
+{%  extends 'home/base.html' %}
+{% block tit %}/student/{{ student.id }}{% endblock %}
+{% block first %}
+<img src="{{ student.image.url }}" class="img-circle pic img-responsive" width="230" height="230" usemap="#page"  >
+    <h2> <Quote>"Life is a Struggle worth suffering For"</Quote></h2>
+    <br>
+    <h1>{{ student.f_name }}  {{ student.m_name }}  {{ student.l_name }}</h1><br>
+    <h3>Designation</h3>
+
+{% endblock %}
+{% block second %}
+    <h1>Courses Taught</h1>
+{% endblock %}
+{% block detail_third %}
+     <h1>About Me</h1>
+{% endblock %}
+{% block first-but %}Home{% endblock %}
+{% block second-but %}Course{% endblock %}
+{% block third-but %}About{% endblock %}
+{% block fourth-but %}{% endblock %}

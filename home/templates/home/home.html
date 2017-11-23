@@ -1,0 +1,176 @@
+
+{%  extends 'home/base.html' %}
+{% load staticfiles %}
+{% block slider %}
+    <section class="pic-section ">
+
+    <div class="slider " id="main-slider"><!-- outermost container element -->
+	<div class="slider-wrapper"><!-- innermost wrapper element -->
+		<img src="{% static 'home/images/office.jpg' %}" alt="Second" class="slide" />
+		<img src="{% static 'home/images/Qh6viNy-.jpg' %}" alt="Third" class="slide" />
+	</div>
+</div>
+
+        <h1 id="middle"><strong> Expert Events! </strong></h1>
+
+
+<script>
+	(function() {
+
+	function Slideshow(parameters ) {
+        var element = parameters.element;
+		this.el = document.querySelector( element );
+		this.init();
+	}
+
+	Slideshow.prototype = {
+		init: function() {
+			this.wrapper = this.el.querySelector( ".slider-wrapper" );
+			this.slides = this.el.querySelectorAll( ".slide" );
+			this.previous = this.el.querySelector( ".slider-previous" );
+			this.next = this.el.querySelector( ".slider-next" );
+			this.index = 0;
+			this.total = this.slides.length;
+			this.timer = null;
+
+			this.action();
+			this.stopStart();
+		},
+		_slideTo: function( slide ) {
+			var currentSlide = this.slides[slide];
+			currentSlide.style.opacity = 1;
+
+			for( var i = 0; i < this.slides.length; i++ ) {
+				var slide = this.slides[i];
+				if( slide !== currentSlide ) {
+					slide.style.opacity = 0;
+				}
+			}
+		},
+		action: function() {
+			var self = this;
+			self.timer = setInterval(function() {
+				self.index++;
+				if( self.index == self.slides.length ) {
+					self.index = 0;
+				}
+				self._slideTo( self.index );
+
+			}, 3000);
+		},
+		stopStart: function() {
+			var self = this;
+			self.el.addEventListener( "mouseover", function() {
+				clearInterval( self.timer );
+				self.timer = null;
+
+			}, false);
+			self.el.addEventListener( "mouseout", function() {
+				self.action();
+
+			}, false);
+		}
+
+
+	};
+
+	document.addEventListener( "DOMContentLoaded", function() {
+
+		var slider = new Slideshow( {element: "#main-slider"} );
+
+	});
+
+
+})();
+
+	</script>
+
+    </section>
+
+{% endblock %} <!--end first -->
+
+
+{% block second %}
+    <!--<div class="alert alert-info">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Welcome to the Beta
+    </div> -->
+       {% if view.facultys %}
+ <div >
+     {% for faculty in view.facultys %}
+     <div class="pic arrange" >
+
+         <a href="{% url 'home:fac_detail' faculty.id %}">
+             <img src="{{ faculty.image.url }}" class="img-responsive arrange img-circle zoomin" width="120" height="10" usemap="#page"  >
+         </a><br>
+
+
+
+     </div>
+     {% endfor %}
+ </div>
+     {% else %}
+    <h3>no faculty present</h3>
+{% endif %}
+{% endblock %}
+
+{% block third %}
+
+    {% if view.course %}
+         <div>
+            {% for c in view.course %}
+                <h3>{{ c.course_name }}</h3>
+            {% endfor %}
+        </div>
+    {% else %}
+    <h1>no courses yet</h1>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+<footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Location</h3>
+                        <p>Street 2408
+                            <br>Block 729 Bahrain</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Facebook</span><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Google Plus</span><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Dribble</span><i class="fa fa-fw fa-dribbble"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>About ChildLife</h3>
+                        <p>ChildLife is a initiative to save the Hungry fro knowledge students <a href="#">Donate</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Your Website 2017
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
